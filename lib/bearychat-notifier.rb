@@ -3,6 +3,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 require 'bearychat-notifier/http_client'
+require 'exception_notifier/bearychat_notifier'
 
 module Bearychat
   class Notifier
