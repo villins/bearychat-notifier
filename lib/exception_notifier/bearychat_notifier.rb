@@ -10,7 +10,9 @@ module ExceptionNotifier
         @ignore_data_if = options[:ignore_data_if]
 
         webhook_url = options.fetch(:webhook_url)
-        @message_opts = options.fetch(:additional_parameters, {})
+        options.delete(:webhook_url)
+        @payload_options = options
+        @payload_options[:attachments] = options.fetch(:attachments, [])
         @notifier = Bearychat::Notifier.new webhook_url, options
       rescue
         @notifier = nil
@@ -18,12 +20,16 @@ module ExceptionNotifier
     end
 
     def call(exception, options={})
-      message = "An exception occurred: '#{exception.message}' on '#{exception.backtrace.first}'"
+      text = "An exception occurred: '#{exception.message}' on '#{exception.backtrace.first}'"
 
-      message = enrich_message_with_data(message, options)
-      message = enrich_message_with_backtrace(message, exception)
+      text = enrich_message_with_data(message, options)
 
-      @notifier.ping(message, @message_opts) if valid?
+      attachment_options = {}
+      attachment_options[:text] = enrich_message_with_backtrace(message, exception)
+      @payload_options[:attachments].push(attachment_options)
+      @attachments[:text] = attachments_text
+
+      @notifier.ping(message, @attachments) if valid?
     end
 
     protected

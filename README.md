@@ -1,6 +1,6 @@
 # Bearychat::Notifier
 
-TODO: Write a gem description
+    A simple wrapper for posting to bearychat channels
 
 ## Installation
 
@@ -17,8 +17,43 @@ Or install it yourself as:
     $ gem install bearychat-notifier
 
 ## Usage
+```ruby    
+    options = {
+      text: "text, this field may accept markdown",
+      markdown: true,
+      channel: "bearychat-dev",
+      attachments: [
+        {
+            title: "title_1",
+            text: "attachment_text",
+            color: "#ffffff",
+            images: [
+                {"url": "http://example.com/index.jpg"}
+                ]
+        }]
+    }
 
-TODO: Write usage instructions here
+    @notifier = Bearychat::Notifier.new "webhook_url", options
+
+    @notifier.ping "Hello world"
+```
+
+## with exception_notification
+```ruby
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[PREFIX] ",
+    :sender_address => %{"notifier" <notifier@example.com>},
+    :exception_recipients => %w{exceptions@example.com}
+  },
+  :bearychat => {
+    text: "hello world",
+    markdown: true,
+    channel: "all",
+    attachments: []
+  }
+```
+
 
 ## Contributing
 

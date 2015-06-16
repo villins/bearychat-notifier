@@ -11,7 +11,7 @@ module Bearychat
       attr_reader :uri, :params, :http_options
 
       def initialize(url, params) 
-        @uri = uri
+        @uri = url
         @http_options = params.delete(:http_options) || {}
         @params = params
       end
@@ -23,7 +23,7 @@ module Bearychat
       private
       def http_post
         url = URI.parse(uri)
-        post_obj = Net::HTTP.Post.new(url.path)
+        post_obj = Net::HTTP::Post.new(url.path)
         post_obj.set_form_data(params)
 
         socket = Net::HTTP.new(url.host, url.port)
@@ -37,7 +37,7 @@ module Bearychat
           end
         end
 
-        response = socket.start {|http| http.request(post) }
+        response = socket.start {|http| http.request(post_obj) }
       end
     end 
   end
