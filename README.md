@@ -47,6 +47,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
     :exception_recipients => %w{exceptions@example.com}
   },
   :bearychat => {
+    webhook_url: "Your webhook url"
     text: "hello world",
     markdown: true,
     channel: "all",

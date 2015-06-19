@@ -27,9 +27,8 @@ module ExceptionNotifier
       attachment_options = {}
       attachment_options[:text] = enrich_message_with_backtrace(text, exception)
       @payload_options[:attachments].push(attachment_options)
-      @attachments[:text] = attachments_text
 
-      @notifier.ping(message, @attachments) if valid?
+      @notifier.ping(text, @payload_options) if valid?
     end
 
     protected
