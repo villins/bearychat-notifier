@@ -22,10 +22,10 @@ module ExceptionNotifier
     def call(exception, options={})
       text = "An exception occurred: '#{exception.message}' on '#{exception.backtrace.first}'"
 
-      text = enrich_message_with_data(message, options)
+      text = enrich_message_with_data(text, options)
 
       attachment_options = {}
-      attachment_options[:text] = enrich_message_with_backtrace(message, exception)
+      attachment_options[:text] = enrich_message_with_backtrace(text, exception)
       @payload_options[:attachments].push(attachment_options)
       @attachments[:text] = attachments_text
 
