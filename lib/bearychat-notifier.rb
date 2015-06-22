@@ -14,7 +14,7 @@ module Bearychat
       @payload     = options
     end
 
-    def ping(text, options)
+    def ping(text, options = {})
       payload.merge!(options)
       payload.merge!(text: text)
       params = { payload: payload.to_json }

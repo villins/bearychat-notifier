@@ -30,8 +30,8 @@ module Bearychat
         socket.use_ssl = true if url.scheme.downcase == "https"
         
         http_options.each do |opt, val|
-          if http.respond_to? "#{opt}="
-            http.send "#{opt}=", val
+          if socket.respond_to? "#{opt}="
+            socket.send "#{opt}=", val
           else
             warn "Net::HTTP doesn't respond to `#{opt}=`, ignoring that option"
           end
