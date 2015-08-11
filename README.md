@@ -54,7 +54,28 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
     attachments: []
   }
 ```
+## With Capistrano3(git)
 
+```
+require 'bearychat-notifier/capistrano'
+
+set :bearychat_hook, your_bearychat_hook_uri
+```
+
+#### options
+```
+#default: true
+set :bearychat_enabled
+
+#default: #E51C23
+set :bearychat_failed_color
+
+#default: #259B24
+set :bearychat_successed_color
+
+#default: #FFC107
+set :bearychat_starting_color
+```
 
 ## Contributing
 
