@@ -57,7 +57,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 ## With Capistrano3(git)
 
 ```
-require 'bearychat/capistrano'
+require 'bearychat-notifier/capistrano'
 
 set :bearychat_hook, your_bearychat_hook_uri
 ```
